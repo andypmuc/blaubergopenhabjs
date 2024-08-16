@@ -7,21 +7,32 @@ This module has roots in the [dukaonesdk](https://github.com/dingusdk/dukaonesdk
 
 The primary goal for this module is to create a Javascript client that makes communicating with Blauberg Vento(and its derivatives) a simple task. My personal need is to integrate it into Homebridge and node-red.
 
-## Installation
+## Create project and installation of package
+
+Create a NPM project in a directory by using
+
 ```
-npm i blaubergventojs
+npm init
+```
+
+command and install blaubergopenhabjs package by
+
+```
+npm install blaubergopenhabjs
 ```
 
 The module has the following 2 levels of communication:
 1. A low level client that mimics the communication protocol specified by Blauberg.
 2. A high level resource that wraps the low level client for easier usage.
+
+Please create a index.js file and try the example below.
  
 ## Low level Example 
 
 ```
-import { BlaubergVentoClient, FunctionType, Parameter, DataEntry } from 'blaugbergventojs'
+import bbohjs from 'blaubergopenhabjs'
 
-const client = new BlaubergVentoClient();
+const client = new bbohjs.BlaubergVentoClient();
 
 // Find all devices on the local network
 const addresses = await client.findDevices();
@@ -39,18 +50,25 @@ const isOn = response.packet.dataEntries[0].value === 1;
 ## High Level Example
 
 ```
-import { BlaubergVentoResource, FunctionType, Parameter, DataEntry } from 'blaugbergventojs'
+import bbohjs from 'blaubergopenhabjs'
 
-const resource = new BlaubergVentoResource();
+const resource = new bbohjs.BlaubergVentoResource();
 
 // Find all devices on the local network
 const devices = await resource.findAll();
 
 // Change a device and save it
-let device = devices.contents[0];
+let device = devices.content[0];
 device.speed = 1;
 device = await resource.save(device);
 
+```
+## Running project
+
+Execute command
+
+```
+node index.js
 ```
 
 [You can see the documentation from Blauberg here](https://blaubergventilatoren.de/uploads/download/b133_4_1en_01preview.pdf)
